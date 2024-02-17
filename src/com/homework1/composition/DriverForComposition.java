@@ -6,49 +6,67 @@ import java.util.List;
 
 public class DriverForComposition {
     public static void run() {
-        // Create sub-folders
-        Folder php_demo1 = new Folder("php_demo1");
-        Folder source_files = new Folder("Source Files");
-        php_demo1.addSubFolder(source_files);
 
+        // Creating the directory structure
+        Folder phpDemo1 = new Folder("php_demo1");
+        Folder sourceFiles = new Folder("Source Files");
         Folder phalcon = new Folder(".phalcon");
         Folder app = new Folder("app");
-        source_files.addSubFolder(phalcon);
-        source_files.addSubFolder(app);
-
-        Folder config =  new Folder("config");
-        Folder controllers =  new Folder("controllers");
-        Folder library =  new Folder("library");
-        Folder migrations =  new Folder("migrations");
-        Folder models =  new Folder("models");
-        Folder views =  new Folder("views");
-        app.addSubFolders(new ArrayList<>(Arrays.asList(config, controllers, library, migrations, models, views)));
-
         Folder cache = new Folder("cache");
-        Folder publicFolder = new Folder("publicFolder");
-        source_files.addSubFolders(new ArrayList<>(Arrays.asList(cache, publicFolder)));
-        // Create files
+        Folder publicFolder = new Folder("public");
+
+        Folder config = new Folder("config");
+        Folder controllers = new Folder("controllers");
+        Folder models = new Folder("models");
+        Folder library = new Folder("library");
+        Folder migrations = new Folder("migrations");
+        Folder views = new Folder("views");
+
+
         File htaccess = new File(".htaccess");
-        File htrouter = new File(".htrouter.php");
-        File index = new File("index.html");
-        publicFolder.addFiles(new ArrayList<>(Arrays.asList(htaccess, htrouter, index)));
+        File htrouterPhp = new File(".htrouter.php");
+        File indexHtml = new File("index.html");
 
+        app.addSubFolder(config);
+        app.addSubFolder(controllers);
+        app.addSubFolder(migrations);
+        app.addSubFolder(models);
+        app.addSubFolder(library);
+        app.addSubFolder(views);
 
-        // Step 2: Print out the folder structure
-        System.out.println("Folder Structure before deletion:");
-        php_demo1.print();
+        publicFolder.addFile(htaccess);
+        publicFolder.addFile(htrouterPhp);
+        publicFolder.addFile(indexHtml);
+
+        sourceFiles.addSubFolder(phalcon);
+        sourceFiles.addSubFolder(app);
+        sourceFiles.addSubFolder(cache);
+        sourceFiles.addSubFolder(publicFolder);
+
+        phpDemo1.addSubFolder(sourceFiles);
+
+        // Printing the initial directory structure
+        System.out.println("Initial Directory Structure:");
+        phpDemo1.print();
         System.out.println();
 
-        // Step 3: Delete the 'app' folder and print out the updated folder structure
-        source_files.removeSubFolder(app);
-        System.out.println("Folder Structure after deleting 'app' folder:");
-        php_demo1.print();
+        // Deleting the folder "app"
+        System.out.println("Deleting the folder 'app':");
+        sourceFiles.getSubFolders().remove(app);
         System.out.println();
 
-        // Step 4: Delete the 'publicFolder' folder and print out the updated folder structure
-        source_files.removeSubFolder(publicFolder);
-        System.out.println("Folder Structure after deleting 'publicFolder' folder:");
-        php_demo1.print();
+        // Printing the directory structure after deleting "app"
+        System.out.println("Directory Structure after deleting 'app':");
+        phpDemo1.print();
+        System.out.println();
 
+        // Deleting the folder "public"
+        System.out.println("Deleting the folder 'public':");
+        sourceFiles.getSubFolders().remove(publicFolder);
+        System.out.println();
+
+        // Printing the directory structure after deleting "public"
+        System.out.println("Directory Structure after deleting 'public':");
+        phpDemo1.print();
     }
 }

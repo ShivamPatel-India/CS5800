@@ -3,7 +3,7 @@ package com.homework1.composition;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Folder {
+class Folder {
     private String name;
     private List<Folder> subFolders;
     private List<File> files;
@@ -14,34 +14,57 @@ public class Folder {
         this.files = new ArrayList<>();
     }
 
-    public void addSubFolder(Folder subFolder) {
-        subFolders.add(subFolder);
+    public String getName() {
+        return name;
     }
 
-    public void addSubFolders(ArrayList<Folder> folders) {
-        subFolders.addAll(folders);
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Folder> getSubFolders() {
+        return subFolders;
+    }
+
+    public void setSubFolders(List<Folder> subFolders) {
+        this.subFolders = subFolders;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
+
+    public void addSubFolder(Folder folder) {
+        subFolders.add(folder);
     }
 
     public void addFile(File file) {
         files.add(file);
     }
 
-    public void addFiles(ArrayList<File> files1) {
-        files.addAll(files1);
+    public void print() {
+        printFolderContents(this, 0);
     }
 
-    public void removeSubFolder(Folder subFolder) {
-        subFolders.remove(subFolder);
-    }
-    public void print() {
-        System.out.println("Folder: " + name);
-        System.out.println("Files:");
-        for (File file : files) {
+    private void printFolderContents(Folder folder, int level) {
+        for (int i = 0; i < level; i++) {
+            System.out.print("  ");
+        }
+        System.out.println("Folder: " + folder.getName());
+
+        for (File file : folder.getFiles()) {
+            for (int i = 0; i < level + 1; i++) {
+                System.out.print("  ");
+            }
             file.print();
         }
-        System.out.println("Sub-Folders:");
-        for (Folder folder : subFolders) {
-            folder.print();
+
+        for (Folder subFolder : folder.getSubFolders()) {
+            printFolderContents(subFolder, level + 1);
         }
     }
 }
